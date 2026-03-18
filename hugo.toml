@@ -1,0 +1,11 @@
+baseURL = "https://STeveShary.github.io/blog/"
+languageCode = "en-us"
+title = "blog"
+
+[params]
+  theme = "ink"
+  themeMode = "auto"
+
+[module]
+  [[module.imports]]
+    path = "github.com/craftsmanship-eu/jughead"
