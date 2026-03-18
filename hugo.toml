@@ -8,4 +8,4 @@ title = "blog"
 
 [module]
   [[module.imports]]
-    path = "github.com/craftsmanship-eu/jughead"
+    path = "github.com/ananthb/jughead"
