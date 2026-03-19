@@ -1,6 +1,6 @@
-baseURL = "https://deployedthoughts.dev/"
+baseURL = "https://deployedthoughts.dev"
 languageCode = "en-us"
-title = "blog"
+title = "Stephen Shary"
 
 [params]
   theme = "ink"
