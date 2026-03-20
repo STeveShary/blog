@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://deployedthoughts.dev/sitemap.xml
