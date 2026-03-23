@@ -8,11 +8,16 @@ more likely they are to use it.&lt;/p&gt;</description></item><item><title>Steps
 &lt;p&gt;Steps to fix a bug correctly:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;From the telemetry, and side effect output, determine the inputs that cause the bug consistently.
-&lt;ol&gt;
+&lt;ul&gt;
 &lt;li&gt;It is common that not enough information is available to understand the issue, add more telemetry if needed and repeat step 1.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;Add an automated test (at the correct level) that replicates the issue.&lt;/li&gt;
+&lt;li&gt;Add an automated test (at the correct level) that replicates the issue.
+&lt;ul&gt;
+&lt;li&gt;More than one test may be necessary to fully define the &amp;ldquo;edge cases&amp;rdquo; of the bug.&lt;/li&gt;
+&lt;li&gt;This is only possible if you truly understand the root cause — a test written against a symptom gives false coverage.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Write the minimal code needed to make the test pass.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Done!&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;strong&gt;Thought:&lt;/strong&gt; There are many people that can aleviate a symptom, but the best solution is one that tackles the issue. Be the person that knows the &amp;ldquo;why&amp;rdquo;.&lt;/p&gt;</description></item></channel></rss>
