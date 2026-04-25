@@ -1,11 +1,16 @@
 /*
-  PaperMod Theme Defaults — copied here so customizations don't require
-  looking up the upstream theme.  Edit values in-place as needed.
-  Source: hugo-PaperMod v8+ (MIT License)
+  Terminal UI (TUI) Theme for PaperMod
+  Inspired by modern terminal UIs like lazygit, btop, etc.
 */
 
 /* ===================================================================
-   THEME VARIABLES (core/theme-vars.css)
+   FONTS — Load JetBrains Mono for that crisp terminal feel
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+
+/* ===================================================================
+   THEME VARIABLES
    =================================================================== */
 
 :root {
@@ -15,34 +20,54 @@
     --main-width: 720px;
     --header-height: 60px;
     --footer-height: 60px;
-    --radius: 8px;
-    --theme: rgb(255, 255, 255);
-    --entry: rgb(255, 255, 255);
-    --primary: rgb(30, 30, 30);
-    --secondary: rgb(108, 108, 108);
-    --tertiary: rgb(214, 214, 214);
-    --content: rgb(31, 31, 31);
-    --code-block-bg: rgb(28, 29, 33);
-    --code-bg: rgb(245, 245, 245);
-    --border: rgb(238, 238, 238);
+    --radius: 0px;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+
+    /* Light mode — muted warm terminal */
+    --theme: #f4f0eb;
+    --entry: #eae5df;
+    --primary: #2b2b2b;
+    --secondary: #6b6b6b;
+    --tertiary: #d5d0ca;
+    --content: #333333;
+    --code-block-bg: #1e1e2e;
+    --code-bg: #ddd8d1;
+    --border: #c5c0b9;
+
+    /* TUI-specific */
+    --tui-accent: #7c6f9b;
+    --tui-accent-bright: #9d8ec2;
+    --tui-green: #5b8a72;
+    --tui-blue: #5f7ea8;
+    --tui-border: #a8a29e;
+    --tui-panel-border: 1px solid var(--tui-border);
+
     color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-    --theme: rgb(29, 30, 32);
-    --entry: rgb(46, 46, 51);
-    --primary: rgb(218, 218, 219);
-    --secondary: rgb(155, 156, 157);
-    --tertiary: rgb(65, 66, 68);
-    --content: rgb(196, 196, 197);
-    --code-block-bg: rgb(46, 46, 51);
-    --code-bg: rgb(55, 56, 62);
-    --border: rgb(51, 51, 51);
+    --theme: #1a1b26;
+    --entry: #1f2029;
+    --primary: #c0caf5;
+    --secondary: #737aa2;
+    --tertiary: #292e42;
+    --content: #a9b1d6;
+    --code-block-bg: #16161e;
+    --code-bg: #24283b;
+    --border: #3b3f56;
+
+    --tui-accent: #7aa2f7;
+    --tui-accent-bright: #89b4fa;
+    --tui-green: #9ece6a;
+    --tui-blue: #7aa2f7;
+    --tui-border: #3b3f56;
+    --tui-panel-border: 1px solid var(--tui-border);
+
     color-scheme: dark;
 }
 
 .list {
-    background: var(--code-bg);
+    background: var(--theme);
 }
 
 [data-theme="dark"] .list {
@@ -50,7 +75,7 @@
 }
 
 /* ===================================================================
-   RESET (core/reset.css)
+   RESET
    =================================================================== */
 
 *,
@@ -79,9 +104,9 @@ h6 {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 18px;
-    line-height: 1.6;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.7;
     word-break: break-word;
     background: var(--theme);
 }
@@ -106,7 +131,9 @@ h3,
 h4,
 h5,
 h6 {
-    line-height: 1.2;
+    line-height: 1.3;
+    font-weight: 700;
+    letter-spacing: -0.01em;
 }
 
 h1,
@@ -126,6 +153,12 @@ ul {
 
 a {
     text-decoration: none;
+    color: var(--tui-accent);
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: var(--tui-accent-bright);
 }
 
 body,
@@ -173,7 +206,7 @@ img {
 }
 
 /* ===================================================================
-   SCROLLBAR (includes/scroll-bar.css)
+   SCROLLBAR
    =================================================================== */
 
 ::-webkit-scrollbar-track {
@@ -183,11 +216,7 @@ img {
 ::-webkit-scrollbar-thumb {
     background: var(--tertiary);
     border: 5px solid var(--theme);
-    border-radius: var(--radius);
-}
-
-[data-theme="light"] .list::-webkit-scrollbar-thumb {
-    border: 5px solid var(--code-bg);
+    border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -211,21 +240,8 @@ img {
     background: rgb(163, 163, 165);
 }
 
-.gist table::-webkit-scrollbar-thumb {
-    border: 2px solid rgb(255, 255, 255);
-    background: rgb(173, 173, 173);
-}
-
-.gist table::-webkit-scrollbar-thumb:hover {
-    background: rgb(112, 112, 112);
-}
-
-.post-content table::-webkit-scrollbar-thumb {
-    border-width: 2px;
-}
-
 /* ===================================================================
-   CHROMA SYNTAX HIGHLIGHTING (includes/chroma-mod.css)
+   CHROMA SYNTAX HIGHLIGHTING
    =================================================================== */
 
 .chroma {
@@ -253,10 +269,7 @@ img {
     width: 100%;
 }
 
-/* ===================================================================
-   CHROMA COLOR SCHEME (includes/chroma-styles.css)
-   =================================================================== */
-
+/* Chroma color scheme (Catppuccin Macchiato - works well with TUI look) */
 /* Background */ .bg { color: #cad3f5; background-color: #24273a; }
 /* PreWrapper */ .chroma { color: #cad3f5; background-color: #24273a; }
 /* Other */ .chroma .x {  }
@@ -345,7 +358,7 @@ img {
 /* TextWhitespace */ .chroma .w {  }
 
 /* ===================================================================
-   MAIN LAYOUT (common/main.css)
+   MAIN LAYOUT
    =================================================================== */
 
 .main {
@@ -357,7 +370,14 @@ img {
 }
 
 .page-header h1 {
-    font-size: 40px;
+    font-size: 32px;
+}
+
+/* TUI-style title prefix */
+.page-header h1::before {
+    content: "# ";
+    color: var(--tui-accent);
+    font-weight: 400;
 }
 
 .pagination {
@@ -368,9 +388,12 @@ img {
     color: var(--theme);
     font-size: 13px;
     line-height: 36px;
-    background: var(--primary);
-    border-radius: calc(36px / 2);
+    background: var(--tui-accent);
+    border-radius: 0;
     padding: 0 16px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .pagination .next {
@@ -389,6 +412,7 @@ img {
 
 code {
     direction: ltr;
+    font-family: var(--font-mono);
 }
 
 div.highlight,
@@ -403,10 +427,11 @@ pre {
     right: 4px;
     color: rgba(255, 255, 255, 0.8);
     background: rgba(78, 78, 78, 0.8);
-    border-radius: var(--radius);
+    border-radius: 0;
     padding: 0 5px;
     font-size: 14px;
     user-select: none;
+    font-family: var(--font-mono);
 }
 
 div.highlight:hover .copy-code,
@@ -415,7 +440,7 @@ pre:hover .copy-code {
 }
 
 /* ===================================================================
-   HEADER (common/header.css)
+   HEADER — TUI top bar
    =================================================================== */
 
 .nav {
@@ -426,6 +451,7 @@ pre:hover .copy-code {
     margin-inline-start: auto;
     margin-inline-end: auto;
     line-height: var(--header-height);
+    border-bottom: var(--tui-panel-border);
 }
 
 .nav a {
@@ -443,16 +469,19 @@ pre:hover .copy-code {
 }
 
 .logo a {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
+    font-family: var(--font-mono);
+    letter-spacing: -0.02em;
 }
+
 
 .logo a img, .logo a svg {
     display: inline;
     vertical-align: middle;
     pointer-events: none;
     transform: translate(0, -10%);
-    border-radius: 6px;
+    border-radius: 0;
     margin-inline-end: 8px;
 }
 
@@ -481,12 +510,35 @@ button#theme-toggle {
 }
 
 #menu a {
-    font-size: 16px;
+    font-size: 14px;
+    font-family: var(--font-mono);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    color: var(--secondary);
+    transition: color 0.15s ease;
+}
+
+#menu a:hover {
+    color: var(--tui-accent-bright);
 }
 
 #menu .active {
     font-weight: 500;
-    border-bottom: 2px solid currentColor;
+    border-bottom: 2px solid var(--tui-accent);
+    color: var(--primary);
+}
+
+/* TUI-style bracket prefix for nav items */
+#menu a::before {
+    content: "[";
+    color: var(--tui-border);
+    margin-right: 2px;
+}
+
+#menu a::after {
+    content: "]";
+    color: var(--tui-border);
+    margin-left: 2px;
 }
 
 .lang-switch li,
@@ -512,13 +564,14 @@ button#theme-toggle {
 }
 
 /* ===================================================================
-   FOOTER (common/footer.css)
+   FOOTER — TUI status bar
    =================================================================== */
 
 .footer,
 .top-link {
     font-size: 12px;
     color: var(--secondary);
+    font-family: var(--font-mono);
 }
 
 .footer {
@@ -527,6 +580,7 @@ button#theme-toggle {
     padding: calc((var(--footer-height) - var(--gap)) / 2) var(--gap);
     text-align: center;
     line-height: 24px;
+    border-top: var(--tui-panel-border);
 }
 
 .footer span {
@@ -539,12 +593,13 @@ button#theme-toggle {
 }
 
 .footer a {
-    color: inherit;
-    border-bottom: 1px solid var(--secondary);
+    color: var(--tui-accent);
+    border-bottom: none;
 }
 
 .footer a:hover {
-    border-bottom: 1px solid var(--primary);
+    color: var(--tui-accent-bright);
+    border-bottom: none;
 }
 
 .top-link {
@@ -554,10 +609,11 @@ button#theme-toggle {
     right: 30px;
     z-index: 99;
     background: var(--tertiary);
+    border: var(--tui-panel-border);
     width: 42px;
     height: 42px;
     padding: 12px;
-    border-radius: 64px;
+    border-radius: 0;
     transition: visibility 0.5s, opacity 0.8s linear;
 }
 
@@ -577,7 +633,7 @@ button#theme-toggle {
 }
 
 /* ===================================================================
-   POST SINGLE (common/post-single.css)
+   POST SINGLE — TUI panel style
    =================================================================== */
 
 .page-header,
@@ -587,8 +643,9 @@ button#theme-toggle {
 
 .post-title {
     margin-bottom: 2px;
-    font-size: 40px;
+    font-size: 28px;
 }
+
 
 .post-description {
     margin-top: 10px;
@@ -598,13 +655,20 @@ button#theme-toggle {
 .post-meta,
 .breadcrumbs {
     color: var(--secondary);
-    font-size: 14px;
+    font-size: 12px;
+    font-family: var(--font-mono);
 }
 
 .breadcrumbs {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+}
+
+/* Breadcrumb separator styling */
+.breadcrumbs a {
+    font-size: 13px;
+    color: var(--tui-accent);
 }
 
 .i18n_list {
@@ -614,10 +678,6 @@ button#theme-toggle {
 .post-meta .i18n_list li {
     list-style: none;
     margin: auto 3px;
-}
-
-.breadcrumbs a {
-    font-size: 16px;
 }
 
 .post-content {
@@ -634,16 +694,31 @@ button#theme-toggle {
 
 .post-content h1 {
     margin: 40px auto 32px;
-    font-size: 40px;
+    font-size: 28px;
 }
 
 .post-content h2 {
     margin: 32px auto 24px;
-    font-size: 32px;
+    font-size: 24px;
+    padding-bottom: 6px;
+    border-bottom: var(--tui-panel-border);
+}
+
+/* Section heading prefixes */
+.post-content h2::before {
+    content: "## ";
+    color: var(--tui-accent);
+    font-weight: 400;
 }
 
 .post-content h3 {
-    font-size: 24px;
+    font-size: 20px;
+}
+
+.post-content h3::before {
+    content: "### ";
+    color: var(--tui-accent);
+    font-weight: 400;
 }
 
 .post-content h4 {
@@ -664,12 +739,13 @@ button#theme-toggle {
     box-shadow: 0 1px 0;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+    color: var(--tui-accent);
 }
 
 .post-content a code {
     margin: auto 0;
     border-radius: 0;
-    box-shadow: 0 -1px 0 var(--primary) inset;
+    box-shadow: 0 -1px 0 var(--tui-accent) inset;
 }
 
 .post-content del {
@@ -740,13 +816,14 @@ button#theme-toggle {
 }
 
 .post-content .highlight table {
-    border-radius: var(--radius);
+    border-radius: 0;
 }
 
 .post-content .highlight:not(table) {
     margin: 10px auto;
     background: var(--code-block-bg) !important;
-    border-radius: var(--radius);
+    border-radius: 0;
+    border: 1px solid var(--border);
     direction: ltr;
 }
 
@@ -781,11 +858,13 @@ button#theme-toggle {
 
 .post-content code {
     margin: auto 4px;
-    padding: 4px 6px;
-    font-size: 0.78em;
+    padding: 3px 6px;
+    font-size: 0.85em;
     line-height: 1.5;
     background: var(--code-bg);
-    border-radius: 2px;
+    border-radius: 0;
+    border: 1px solid var(--border);
+    font-family: var(--font-mono);
 }
 
 .post-content pre code {
@@ -794,7 +873,8 @@ button#theme-toggle {
     padding: 10px;
     color: rgb(213, 213, 214);
     background: var(--code-block-bg) !important;
-    border-radius: var(--radius);
+    border-radius: 0;
+    border: none;
     overflow-x: auto;
     word-break: break-all;
 }
@@ -802,14 +882,22 @@ button#theme-toggle {
 .post-content blockquote {
     margin: 20px 0;
     padding: 0 14px;
-    border-inline-start: 3px solid var(--primary);
+    border-inline-start: 3px solid var(--tui-accent);
+    color: var(--secondary);
+    font-style: italic;
 }
 
 .post-content hr {
     margin: 30px 0;
-    height: 2px;
-    background: var(--tertiary);
+    height: 1px;
+    background: var(--border);
     border: 0;
+}
+
+/* Dashed HR for that TUI separator feel */
+.post-content hr::after {
+    content: "";
+    display: block;
 }
 
 .post-content iframe {
@@ -817,8 +905,9 @@ button#theme-toggle {
 }
 
 .post-content img {
-    border-radius: 4px;
+    border-radius: 0;
     margin: 1rem 0;
+    border: var(--tui-panel-border);
 }
 
 .post-content img[src*="#center"] {
@@ -831,22 +920,23 @@ button#theme-toggle {
 
 .post-content figure>figcaption {
     color: var(--primary);
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     margin: 8px 0 16px;
 }
 
 .post-content figure>figcaption>p {
     color: var(--secondary);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: normal;
 }
 
+/* TOC — TUI panel */
 .toc {
     margin-bottom: var(--content-gap);
-    border: 1px solid var(--border);
-    background: var(--code-bg);
-    border-radius: var(--radius);
+    border: var(--tui-panel-border);
+    background: var(--entry);
+    border-radius: 0;
     padding: 0.4em;
 }
 
@@ -858,6 +948,10 @@ button#theme-toggle {
     cursor: zoom-in;
     margin-inline-start: 10px;
     user-select: none;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .toc details[open] summary {
@@ -904,18 +998,26 @@ button#theme-toggle {
 .post-tags a,
 .share-buttons,
 .paginav {
-    border-radius: var(--radius);
-    background: var(--code-bg);
-    border: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+    border: none;
 }
 
 .post-tags a {
     display: block;
     padding: 0 14px;
-    color: var(--secondary);
-    font-size: 14px;
-    line-height: 34px;
-    background: var(--code-bg);
+    color: var(--tui-accent);
+    font-size: 12px;
+    line-height: 30px;
+    background: transparent;
+    font-family: var(--font-mono);
+}
+
+/* Tag prefix */
+.post-tags a::before {
+    content: "#";
+    opacity: 0.5;
+    margin-right: 2px;
 }
 
 .post-tags a:hover,
@@ -956,12 +1058,13 @@ h6:hover .anchor {
 .paginav {
     display: flex;
     line-height: 30px;
+    font-family: var(--font-mono);
 }
 
 .paginav a {
     padding-inline-start: 14px;
     padding-inline-end: 14px;
-    border-radius: var(--radius);
+    border-radius: 0;
 }
 
 .paginav .title {
@@ -999,7 +1102,7 @@ img.in-text {
 }
 
 /* ===================================================================
-   POST ENTRY (common/post-entry.css)
+   POST ENTRY — TUI panel cards
    =================================================================== */
 
 .first-entry {
@@ -1007,15 +1110,27 @@ img.in-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 320px;
-    margin: var(--gap) 0 calc(var(--gap) * 2) 0;
-    /* Custom overrides (originally in custom.css) */
+    margin: var(--gap) 0 var(--gap) 0;
     background: var(--entry);
-    border-radius: 10px;
-    border: 1px solid var(--border);
+    border: var(--tui-panel-border);
+    border-radius: 0;
     padding: 20px var(--gap);
-    margin-bottom: var(--gap);
     min-height: unset;
+}
+
+/* TUI panel label for first entry */
+.first-entry::before {
+    content: " latest ";
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background: var(--theme);
+    color: var(--tui-accent);
+    padding: 0 6px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 .first-entry .entry-header {
@@ -1026,18 +1141,18 @@ img.in-text {
 }
 
 .first-entry .entry-header h1 {
-    font-size: 34px;
+    font-size: 26px;
     line-height: 1.3;
 }
 
 .first-entry .entry-content {
     margin: 14px 0;
-    font-size: 16px;
+    font-size: 14px;
     -webkit-line-clamp: 3;
 }
 
 .first-entry .entry-footer {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .home-info .entry-content {
@@ -1049,13 +1164,17 @@ img.in-text {
     margin-bottom: var(--gap);
     padding: var(--gap);
     background: var(--entry);
-    border-radius: var(--radius);
-    transition: transform 0.1s;
-    border: 1px solid var(--border);
+    border-radius: 0;
+    transition: transform 0.1s, border-color 0.15s ease;
+    border: var(--tui-panel-border);
+}
+
+.post-entry:hover {
+    border-color: var(--tui-accent);
 }
 
 .post-entry:active {
-    transform: scale(0.96);
+    transform: scale(0.98);
 }
 
 .tag-entry .entry-cover {
@@ -1063,14 +1182,14 @@ img.in-text {
 }
 
 .entry-header h2 {
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1.3;
 }
 
 .entry-content {
     margin: 8px 0;
     color: var(--secondary);
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.6;
     overflow: hidden;
     display: -webkit-box;
@@ -1080,7 +1199,8 @@ img.in-text {
 
 .entry-footer {
     color: var(--secondary);
-    font-size: 13px;
+    font-size: 12px;
+    font-family: var(--font-mono);
 }
 
 .entry-link {
@@ -1107,7 +1227,7 @@ img.in-text {
 }
 
 .entry-cover img {
-    border-radius: var(--radius);
+    border-radius: 0;
     width: 100%;
     height: auto;
 }
@@ -1117,7 +1237,7 @@ img.in-text {
 }
 
 /* ===================================================================
-   PROFILE MODE (common/profile-mode.css)
+   PROFILE MODE
    =================================================================== */
 
 .buttons,
@@ -1140,7 +1260,8 @@ img.in-text {
 }
 
 .profile img {
-    border-radius: 50%;
+    border-radius: 0;
+    border: var(--tui-panel-border);
 }
 
 .buttons {
@@ -1150,14 +1271,16 @@ img.in-text {
 
 .button {
     background: var(--tertiary);
-    border-radius: var(--radius);
+    border-radius: 0;
     margin: 8px;
     padding: 6px;
     transition: transform 0.1s;
+    border: var(--tui-panel-border);
 }
 
 .button-inner {
     padding: 0 8px;
+    font-family: var(--font-mono);
 }
 
 .button:active {
@@ -1165,7 +1288,7 @@ img.in-text {
 }
 
 /* ===================================================================
-   SEARCH (common/search.css)
+   SEARCH — TUI input
    =================================================================== */
 
 #searchbox input {
@@ -1173,21 +1296,24 @@ img.in-text {
     width: 100%;
     color: var(--primary);
     font-weight: bold;
-    border: 2px solid var(--tertiary);
-    border-radius: var(--radius);
+    border: var(--tui-panel-border);
+    border-radius: 0;
+    font-family: var(--font-mono);
+    background: var(--entry);
 }
 
 #searchbox input:focus {
-    border-color: var(--secondary);
+    border-color: var(--tui-accent);
 }
 
 #searchResults li {
     list-style: none;
-    border-radius: var(--radius);
+    border-radius: 0;
     padding: 10px;
     margin: 10px 0;
     position: relative;
     font-weight: 500;
+    border: var(--tui-panel-border);
 }
 
 #searchResults {
@@ -1211,11 +1337,11 @@ img.in-text {
 
 #searchResults .focus {
     transform: scale(0.98);
-    border: 2px solid var(--tertiary);
+    border: 2px solid var(--tui-accent);
 }
 
 /* ===================================================================
-   404 (common/404.css)
+   404
    =================================================================== */
 
 .not-found {
@@ -1228,15 +1354,16 @@ img.in-text {
     height: 80%;
     font-size: 160px;
     font-weight: 700;
+    font-family: var(--font-mono);
 }
 
 /* ===================================================================
-   ARCHIVE (common/archive.css)
+   ARCHIVE
    =================================================================== */
 
 .archive-posts {
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .archive-year {
@@ -1244,7 +1371,7 @@ img.in-text {
 }
 
 .archive-year:not(:last-of-type) {
-    border-bottom: 2px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .archive-month {
@@ -1276,11 +1403,11 @@ img.in-text {
 .archive-count,
 .archive-meta {
     color: var(--secondary);
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /* ===================================================================
-   TERMS / TAGS (common/terms.css)
+   TERMS / TAGS
    =================================================================== */
 
 .terms-tags li {
@@ -1293,8 +1420,15 @@ img.in-text {
     display: block;
     padding: 3px 10px;
     background: var(--tertiary);
-    border-radius: 6px;
-    transition: transform 0.1s;
+    border-radius: 0;
+    border: var(--tui-panel-border);
+    transition: transform 0.1s, border-color 0.15s ease;
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+.terms-tags a:hover {
+    border-color: var(--tui-accent);
 }
 
 .terms-tags a:active {
@@ -1303,7 +1437,7 @@ img.in-text {
 }
 
 /* ===================================================================
-   MEDIA QUERIES (core/zmedia.css)
+   MEDIA QUERIES
    =================================================================== */
 
 @media screen and (max-width: 768px) {
@@ -1316,7 +1450,7 @@ img.in-text {
     }
 
     .first-entry {
-        min-height: 260px;
+        min-height: unset;
     }
 
     .archive-month {
