@@ -4,7 +4,15 @@ solve a problem.&lt;/p&gt;
 &lt;p&gt;Understanding this, we should strive to build an environment where the right way to do something is
 the easiest way to do it. Anything that helps an engineer complete their job in a faster, easier, and
 better way will become a new tool or method that they will use. The greater the impact of that tool or technique, the
-more likely they are to use it.&lt;/p&gt;</description></item><item><title>Steps to Solve a Bug Correctly</title><link>https://deployedthoughts.dev/posts/steps-to-fix-bug-correctly/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://deployedthoughts.dev/posts/steps-to-fix-bug-correctly/</guid><description>&lt;p&gt;There&amp;rsquo;s a right way and a wrong way to fix a bug. Done correctly, a fix addresses the root cause, not just the symptoms, and includes a test to prevent regression.&lt;/p&gt;
+more likely they are to use it.&lt;/p&gt;</description></item><item><title>Plan on Failure with AI</title><link>https://deployedthoughts.dev/posts/plan-on-failure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://deployedthoughts.dev/posts/plan-on-failure/</guid><description>&lt;p&gt;Using AI is a great way to improve your systems, but there is one very important aspect
+to think about: all models fail. Every AI model has some points where it will return either a false positive or
+a false negative. If you don&amp;rsquo;t account for this fact, then you will face this in production in &lt;a href="https://www.cbc.ca/news/canada/british-columbia/air-canada-chatbot-lawsuit-1.7116416"&gt;very&lt;/a&gt; &lt;a href="https://dev.to/serenitiesai/nycs-ai-chatbot-told-businesses-to-break-the-law-heres-what-went-wrong-23k"&gt;unexpected&lt;/a&gt; &lt;a href="https://www.theguardian.com/business/article/2024/jun/17/mcdonalds-ends-ai-drive-thru"&gt;ways&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To combat this, you should realize and plan on these two failure modes: false positive (it thought it was providing a correct
+positive answer, but it was wrong), or a false negative (it thought it was providing a correct negative, but it was wrong).
+Your business use case may be much more acceptable of one type over the other. In the general case of medical testing,
+a false positive is much more acceptable than a false negative. It&amp;rsquo;s not great to tell a patient that they might have a
+diagnosis (when they don&amp;rsquo;t - false positive), but it is much, much worse to tell a patient that they don&amp;rsquo;t have a diagnosis
+when they really do (false negative).&lt;/p&gt;</description></item><item><title>Steps to Solve a Bug Correctly</title><link>https://deployedthoughts.dev/posts/steps-to-fix-bug-correctly/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://deployedthoughts.dev/posts/steps-to-fix-bug-correctly/</guid><description>&lt;p&gt;There&amp;rsquo;s a right way and a wrong way to fix a bug. Done correctly, a fix addresses the root cause, not just the symptoms, and includes a test to prevent regression.&lt;/p&gt;
 &lt;p&gt;Steps to fix a bug correctly:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;From the telemetry, and side effect output, determine the inputs that cause the bug consistently.
